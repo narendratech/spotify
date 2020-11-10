@@ -20,7 +20,7 @@ public class TrackDetailsDO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id") 
 	private int Id;
-	
+		
 	@Column(name = "isrc_code") 
 	private String isrcCode;	
 	

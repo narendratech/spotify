@@ -2,6 +2,7 @@ package com.umusic.track.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -27,10 +28,11 @@ public class TrackReadService implements ITrackReadService  {
 	@Override
 	public TrackReadServiceResponse getTracksContainsByArtist(String artistName) {
 		TrackReadServiceResponse trackReadServiceResponse= null;
+		List<TrackDetails> trackDetails = new ArrayList<>();
 		try {
-		  List<TrackDetailsDO> trackDetailsDO = this.readRepository.findTracksByContainsArtist(artistName);
-		  List<TrackDetails> trackDetails = transformDOToTrack(trackDetailsDO);
-		  trackReadServiceResponse = responseBuilder.trackReadResponse(trackDetails);
+		  List<TrackDetailsDO> trackDetailsDO = this.readRepository.findTracksByContainsArtist(artistName.toLowerCase());
+		  List<TrackDetails> trackDetail = transformDOToTrack(trackDetailsDO);
+		  trackReadServiceResponse = responseBuilder.trackReadResponse(trackDetail);
 		}
 		catch(Exception ex) {
 			trackReadServiceResponse = responseBuilder.trackUnKnownErrorReadResponse();
@@ -41,19 +43,18 @@ public class TrackReadService implements ITrackReadService  {
 	@Override
 	public TrackReadServiceResponse getTrackByISRC(String isrc) {
 		TrackReadServiceResponse trackReadServiceResponse= null;
+		List<TrackDetails> trackDetails = new ArrayList<>();
 		try {
-		  TrackDetailsDO trackDetailsDO =this.readRepository.findAll().stream().filter(i->i.getIsrcCode().equals(isrc)).findFirst().get();
-		  if(trackDetailsDO!=null) {
-			  TrackDetails trackDetail = trackMapper.transformDOToTrack((trackDetailsDO));
-			  List<TrackDetails> trackDetails = new ArrayList<>();
+		  Optional<TrackDetailsDO> trackDetailsDO =this.readRepository.findAll().stream().filter(i->i.getIsrcCode().equals(isrc)).findFirst();
+		  if(trackDetailsDO.isPresent()) {
+			  TrackDetails trackDetail = trackMapper.transformDOToTrack((trackDetailsDO.get()));
 			  trackDetails.add(trackDetail);
 			  trackReadServiceResponse = responseBuilder.trackReadResponse(trackDetails);
 		  }
 		  else
 		  {
-			  trackReadServiceResponse = responseBuilder.trackNotFoundReadResponse();
+			  trackReadServiceResponse = responseBuilder.trackReadResponse(trackDetails);
 		  }
-		  
 		}
 		catch(Exception ex) {
 			trackReadServiceResponse = responseBuilder.trackUnKnownErrorReadResponse();

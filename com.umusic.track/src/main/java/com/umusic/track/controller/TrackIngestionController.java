@@ -17,6 +17,5 @@ public class TrackIngestionController {
 	@PostMapping(value = "/storeMusicTrack", consumes = "application/json", produces = "application/json")
 	public TrackIngestionServiceResponse storeMusicTrack(@RequestBody IngestionServiceRequest request) {
 		return ingestionService.ingest(request);
-		
 	}
 }

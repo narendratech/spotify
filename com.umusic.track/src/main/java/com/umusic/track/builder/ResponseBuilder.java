@@ -84,7 +84,7 @@ public class ResponseBuilder {
 
 	public TrackReadServiceResponse trackNotFoundReadResponse() {
 		List<Error> errors = new ArrayList<>();
-		Error error = new Error(ErrorCode.ISRC_NOT_FOUND.getErrorCode(), TRACK_NOT_FOUND, Severity.ERROR);
+		Error error = new Error(ErrorCode.ISRC_NOT_FOUND.getErrorCode(), TRACK_NOT_FOUND, Severity.INFO);
 		errors.add(error);
 
 		return trackReadErrorResponse(errors, Status.NOT_FOUND);
