@@ -1,11 +1,8 @@
 package com.umusic.track.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import com.umusic.tack.response.model.ISRCTrack;
+import com.umusic.track.response.model.TrackReadServiceResponse;
 
 public interface ITrackReadService {
-	public List<ISRCTrack> findByArtistWildCard(String artistName);
-	public ISRCTrack getByISRCTrack(String isrcCode);
+	public TrackReadServiceResponse getTracksContainsByArtist(String artistName);
+	public TrackReadServiceResponse getTrackByISRC(String isrc);
 }

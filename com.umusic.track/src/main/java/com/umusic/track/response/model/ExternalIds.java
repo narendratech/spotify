@@ -1,10 +1,10 @@
-package com.umusic.track.request.model;
+package com.umusic.track.response.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class IngestionServiceRequest {
+public class ExternalIds {
 	private String isrc;
 }

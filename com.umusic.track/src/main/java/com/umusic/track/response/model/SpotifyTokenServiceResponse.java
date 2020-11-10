@@ -1,4 +1,4 @@
-package com.umusic.tack.response.model;
+package com.umusic.track.response.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

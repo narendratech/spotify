@@ -19,9 +19,9 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.umusic.tack.response.model.MusicTrack;
-import com.umusic.tack.response.model.SpotifyTokenServiceResponse;
 import com.umusic.track.config.ApplicationConfig;
+import com.umusic.track.response.model.MusicTrack;
+import com.umusic.track.response.model.SpotifyTokenServiceResponse;
 
 public class SpotifyTrackService {
 
@@ -32,8 +32,7 @@ public class SpotifyTrackService {
 		this.restTemplate = restTemplate;
 	}
 	public String getspotifyAccessToken() {
-		try {
-			
+
 			HttpHeaders requestHeaders = new HttpHeaders();
 			requestHeaders.set("Content-Type", APPLICATION_FORM_URLENCODED_VALUE);
 			requestHeaders.set("Authorization", "Basic " + Base64.getEncoder()
@@ -43,15 +42,10 @@ public class SpotifyTrackService {
 			ResponseEntity<SpotifyTokenServiceResponse> responseEntity = callAction(restTemplate, "getToken", applicationConfig.getSpotifyTokenUrl(), POST,
 					new HttpEntity<>(requestBody, requestHeaders), SpotifyTokenServiceResponse.class, null);
 			 return  responseEntity.getBody().getAccessToken();
-		} catch (Exception ex) {
-			return null;
-		}
 	}
 
 	
 	public MusicTrack getspotifyByISRSC(String isRSC, String token) {
-		try {
-			
 			HttpHeaders requestHeaders = new HttpHeaders();
 			requestHeaders.set("Content-Type", "application/json");
 			requestHeaders.set("Authorization", "Bearer " + token);
@@ -63,9 +57,6 @@ public class SpotifyTrackService {
 					new HttpEntity<>(null, requestHeaders), MusicTrack.class, queryParams);
 			MusicTrack tracks = responseEntity.getBody();
 			return tracks;
-		} catch (Exception ex) {
-			return null;
-		}
 	}
 	
 	

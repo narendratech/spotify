@@ -1,4 +1,4 @@
-package com.umusic.tack.response.model;
+package com.umusic.track.response.model;
 
 import lombok.Getter;
 import lombok.Setter;
